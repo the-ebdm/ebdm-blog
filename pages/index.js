@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 export default function Home({ posts }) {
-  console.log(posts[0])
+  console.log(`Loaded: ${posts.total} item(s)`)
   return (
     <>
       <Head>
@@ -25,16 +25,20 @@ export default function Home({ posts }) {
         </div>
       </div>
 
-      <Posts items={posts}/>
+      <Posts items={posts.items}/>
     </>
   )
 }
 
-import { getAllPosts } from "../lib/contentful"
+import { fetchRestAPI, getAllPosts } from "../lib/contentful"
 import Link from 'next/link'
 
 export async function getStaticProps({ params }) {
-  const posts = await getAllPosts();
+  const posts = await fetchRestAPI({ 
+    type: 'blogPost'
+  })
+
+  console.log(posts)
 
   return {
     props: {
@@ -78,24 +82,27 @@ function Posts({ items }) {
           </div> */}
         </div>
         <div className="mt-6 pt-10 grid gap-16 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-12">
-          {items.map((post) => (
-            <div key={post.title}>
+          {items.map((post) => {
+            const publishedAt = new Date(post.fields.publishedAt) 
+            console.log(post) 
+            return (
+            <div key={post.fields.slug}>
               <p className="text-sm text-gray-500">
-                <time dateTime={post.datetime}>{post.date}</time>
+                <time dateTime={publishedAt.toLocaleString()}>{publishedAt.toLocaleString()}</time>
               </p>
-              <a href="#" className="mt-2 block">
-                <p className="text-xl font-semibold text-gray-900">{post.title}</p>
-                <p className="mt-3 text-base text-gray-500">{post.description}</p>
-              </a>
+              <span className="mt-2 block">
+                <p className="text-xl font-semibold text-gray-900">{post.fields.title}</p>
+                <p className="mt-3 text-base text-gray-500">{post.fields.description}</p>
+              </span>
               <div className="mt-3">
-                <Link href={`/blog/${post.slug}`} passHref>
+                <Link href={`/blog/${post.fields.slug}`} passHref>
                   <a className="text-base font-semibold text-indigo-600 hover:text-indigo-500">
-                    Read full story
+                    Read post
                   </a>
                 </Link>
               </div>
             </div>
-          ))}
+          )})}
         </div>
       </div>
     </div>

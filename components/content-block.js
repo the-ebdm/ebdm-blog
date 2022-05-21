@@ -1,6 +1,6 @@
 import EmbeddedAsset from "./embedded-asset"
 
-const ContentBlock = ({ data }) => {
+const ContentBlock = ({ data, context }) => {
   if(data.hasOwnProperty('content') && data.content.length > 0) {
     console.log(data.content.length)
     return data.content.map(block => {
@@ -13,7 +13,7 @@ const ContentBlock = ({ data }) => {
                   // return (
                   //   <>Test</>
                   // )
-                  return <ContentBlock key={index} data={item} />
+                  return <ContentBlock key={index} data={item} context={context}/>
                 })}
               </p>
             )
@@ -21,13 +21,12 @@ const ContentBlock = ({ data }) => {
           break;
         
         case 'embedded-asset-block':
-          return <EmbeddedAsset data={block.data}/>
+          const asset = context.includes.Asset.filter(item => item.sys.id == block.data.target.sys.id)[0]
+          console.log(asset)
+          return <EmbeddedAsset data={asset}/>
       
         default:
           break;
-      }
-      if(block.nodeType === 'paragraph') {
-        
       }
       console.log(block)
       return null
