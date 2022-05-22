@@ -5,9 +5,9 @@ export default function Document(input) {
     <Html lang="en">
       <Head />
       <body className="h-full min-h-screen">
-        <div className="relative py-16 bg-white overflow-hidden h-full min-h-screen">
+        <div className="relative py-16 overflow-hidden h-full min-h-screen bg">
           <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
-            <div className="relative h-full text-lg max-w-prose mx-auto" aria-hidden="true">
+            {/* <div className="relative h-full text-lg max-w-prose mx-auto" aria-hidden="true">
               <svg
                 className="absolute top-12 left-full transform translate-x-32"
                 width={404}
@@ -71,7 +71,7 @@ export default function Document(input) {
                 </defs>
                 <rect width={404} height={384} fill="url(#d3eb07ae-5182-43e6-857d-35c643af9034)" />
               </svg>
-            </div>
+            </div> */}
           </div>
           <Main />
           <NextScript />
