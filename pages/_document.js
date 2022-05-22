@@ -3,7 +3,14 @@ import { Html, Head, Main, NextScript } from 'next/document'
 export default function Document(input) {
   return (
     <Html lang="en">
-      <Head />
+      <Head>
+        <script 
+          async
+          defer
+          data-website-id="a6cc6ca8-3376-4035-8f2a-fbed75fdf1e8"
+          src="https://analytics.ebdm.dev/umami.js"
+        ></script>
+      </Head>
       <body className="h-full min-h-screen">
         <div className="relative py-16 overflow-hidden h-full min-h-screen bg">
           <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
