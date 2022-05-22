@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 
 export default function Home({ posts }) {
   console.log(`Loaded: ${posts.total} item(s)`)
@@ -37,8 +36,6 @@ export async function getStaticProps({ params }) {
   const posts = await fetchRestAPI({ 
     type: 'blogPost'
   })
-
-  console.log(posts)
 
   return {
     props: {
@@ -86,7 +83,7 @@ function Posts({ items }) {
             const publishedAt = new Date(post.fields.publishedAt) 
             console.log(post) 
             return (
-            <div key={post.fields.slug}>
+            <div key={post.fields.slug} className="hover:border-gray-400 border-transparent border-2 rounded-md p-4 hover:bg-gray-200">
               <p className="text-sm text-gray-500">
                 <time dateTime={publishedAt.toLocaleString()}>{publishedAt.toLocaleString()}</time>
               </p>
@@ -96,7 +93,7 @@ function Posts({ items }) {
               </span>
               <div className="mt-3">
                 <Link href={`/blog/${post.fields.slug}`} passHref>
-                  <a className="text-base font-semibold text-indigo-600 hover:text-indigo-500">
+                  <a className="p-2 rounded-md text-base font-semibold text-indigo-600 hover:text-white hover:bg-indigo-500">
                     Read post
                   </a>
                 </Link>
