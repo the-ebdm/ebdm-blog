@@ -31,6 +31,19 @@ const ContentBlock = ({ data, context }) => {
   } else {
     switch (data.nodeType) {
       case 'text':
+        const classNames = [];
+        if(data.marks.length > 0) {
+          let isCode = false;
+          for(let i=0;i<data.marks.length;i++) {
+            if(data.marks[i].type === 'code') {
+              isCode = true;
+            }
+          }
+          if(isCode) {
+            return <pre><code>{data.value}</code></pre>
+          }
+          return <span>{data.value}</span>
+        }
         return data.value
     
       default:
